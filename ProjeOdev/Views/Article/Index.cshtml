@@ -1,0 +1,30 @@
+﻿@using EntityLayer.Concrete
+@model List<Article>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>ArticleID</th>
+        <th>ArticleTitle</th>
+        <th>ArticleURL</th>
+        <th>Article</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ArticleID</td>
+            <td>@item.ArticleTitle</td>
+            <td>@item.ArticleUrl</td>
+
+            <td>
+                <a href="/Article/DeleteArticle/@item.ArticleID" class="btn btn-danger">Sil</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<a href="/Article/Articles" class="btn btn-lg btn-success">Yeni Makale Ekle</a>

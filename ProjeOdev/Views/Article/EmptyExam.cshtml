@@ -1,0 +1,66 @@
+﻿@using EntityLayer.Concrete
+@model Article
+
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <form method="post">
+            @{int j = 1; }
+            @for (int i = 0; i < 4; i++)
+            {
+                <section soru>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Soru @j</span>
+                        </div>
+                        <input type="hidden" id="ExamID" name="[@i].ExamID" value="@Model.ArticleID">
+                        <textarea class="form-control" id="soru" name="[@i].QuestionText" aria-label="With textarea" rows="3"></textarea>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">A</span>
+                                </div>
+                                <input type="text" id="cevap1" name="[@i].ChoiceA" class="form-control" placeholder="A Seçeneği" aria-label="A Seçeneği" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">B</span>
+                                </div>
+                                <input type="text" id="cevap2" name="[@i].ChoiceB" class="form-control" placeholder="B Seçeneği" aria-label="B Seçeneği" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">C</span>
+                                </div>
+                                <input type="text" id="cevap3" name="[@i].ChoiceC" class="form-control" placeholder="C Seçeneği" aria-label="C Seçeneği" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">D</span>
+                                </div>
+                                <input type="text" id="cevap4" name="[@i].ChoiceD" class="form-control" placeholder="D Seçeneği" aria-label="D Seçeneği" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Doğru Cevap</label>
+                        </div>
+                        <select class="custom-select" id="dogrucevap" name="[@i].TrueChoice">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+                </section>
+                <hr />
+                j = j + 1;
+            }
+            <button type="submit" class="btn btn-primary btn-lg btn-block">SORU EKLE</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+﻿@using EntityLayer.Concrete
+@model Exam
+
+@{
+    ViewData["Title"] = "Exam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center">
+    @{ int i = 1; string name = "";}
+
+    <div class="col-12">
+        @foreach (var item in Model.Article.Paragraphs)
+        {
+            <p>@item.ParagraphText</p>
+        }
+    </div>
+
+    @foreach (var item in Model.Questions)
+    {
+        name = "myList";
+        <div class="col-6">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Soru @i</span>
+                </div>
+                <textarea readonly class="form-control" id="soru" name="" aria-label="With textarea" rows="3">@item.QuestionText</textarea>
+            </div>
+            <div class="input-group">
+                <div class="list-group" name="Question" id="Question" role="tablist">
+                    <radio type="button" name="@name" id="A" class="list-group-item list-group-item-action"><span>A ) </span>@item.ChoiceA</radio>
+                    <radio type="button" name="@name" id="B" class="list-group-item list-group-item-action"><span>B ) </span>@item.ChoiceB</radio>
+                    <radio type="button" name="@name" id="C" class="list-group-item list-group-item-action"><span>C ) </span>@item.ChoiceC</radio>
+                    <radio type="button" name="@name" id="D" class="list-group-item list-group-item-action"><span>D ) </span>@item.ChoiceD</radio>
+                </div>
+            </div>
+
+            <hr />
+            @{i = i + 1;}
+        </div>
+    }
+    <button class="btn btn-lg btn-info" name="btnfinish">Sınavı Bitir</button>
+</div>
+
+
+@section scripts {
+    <script>
+        $('radio').on('click', function (e) {
+            $(this).addClass('active');
+            $(this).siblings().removeClass('active');
+
+            //do any other button related things
+        });
+    </script>
+
+
+    <script type="text/javascript">
+
+        $('button').on('click', function (e) {
+                $.ajax({
+                    type: "Get",
+                    url: "/Exam/GetResult",
+                    data: { "id": @Model.ArticleID},
+                    dataType: 'json',
+                    success: function (response) {
+                        var questions = document.getElementsByName("Question");
+                        for (i = 0; i < questions.length; i++) {
+                            var nodes = questions[i].getElementsByTagName("radio")
+                            for (j = 0; j < nodes.length; j++) {
+                                if (response[i].value === nodes[j].id) {
+                                    nodes[j].style.backgroundColor = "green";
+                                }
+                                else if (nodes[j].className.includes("active")) {
+                                    nodes[j].classList.remove("active");
+                                    nodes[j].style.backgroundColor = "red";
+                                }
+                                    
+                            }
+                        }
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+
+    </script>
+
+}

@@ -1,0 +1,36 @@
+﻿@using EntityLayer.Concrete
+@model List<Question>
+
+
+
+
+<div class="row justify-content-center">
+    @{ int i = 1; string name = "";}
+
+    @foreach (var item in Model)
+    {
+        name = "myList" + i;
+        <div class="col-6">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Soru @i</span>
+                </div>
+                <textarea readonly class="form-control" id="soru" name="" aria-label="With textarea" rows="3">@item.QuestionText</textarea>
+            </div>
+            <div class="input-group">
+                <div class="list-group" name=@name id=@i role="tablist">
+                    <radio type="button" class="list-group-item list-group-item-action"><span>A ) </span>@item.ChoiceA</radio>
+                    <radio type="button" class="list-group-item list-group-item-action"><span>B ) </span>@item.ChoiceB</radio>
+                    <radio type="button" class="list-group-item list-group-item-action"><span>C ) </span>@item.ChoiceC</radio>
+                    <radio type="button" class="list-group-item list-group-item-action"><span>D ) </span>@item.ChoiceD</radio>
+                </div>
+            </div>
+
+            <hr />
+            @{i = i + 1;}
+        </div>
+    }
+    <button class="btn btn-lg btn-info" name="btnfinish">Sınavı Bitir</button>
+</div>
+
+

@@ -1,0 +1,42 @@
+﻿@using EntityLayer.Concrete
+
+@model List<Article>
+@{
+    ViewData["Title"] = "Articles";
+}
+
+<h1>Articles</h1>
+
+
+<div class="accordion" id="accordionExample">
+    @{int a = 0; }
+    @foreach (var item in Model)
+    {
+        string id = "#collapse" + a;
+        string id2 = "collapse" + a;
+        <div class="card">
+            <div class="card-header" id=@a>
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="@id" aria-expanded="false" aria-controls="@id2">
+                        @item.ArticleTitle
+                    </button>
+                </h2>
+            </div>
+            
+            <div id="@id2" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    @foreach (var p in item.Paragraphs)
+                    {
+                        <p>@p.ParagraphText</p>
+                    }
+                    @{item.ArticleID = a;
+                    }
+                    @await Html.PartialAsync("EmptyExam", item)
+                </div>
+            </div>
+        </div>
+
+        a = a + 1;
+
+    }
+</div>
